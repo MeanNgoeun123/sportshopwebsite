@@ -2,6 +2,7 @@
 
 @section('content')
 
+<<<<<<< HEAD
 <style>
 .cart-title {
     font-weight: 800;
@@ -88,6 +89,19 @@
         <table class="table align-middle mb-0">
 
             <thead>
+=======
+<div class="container py-4">
+
+    <h3>Your Cart</h3>
+
+    @if($cartItems->count() > 0)
+
+    <div class="table-responsive mt-3">
+
+        <table class="table table-bordered align-middle">
+
+            <thead class="table-dark">
+>>>>>>> 05db09b21274c2c101a3a70efef01a1844115506
                 <tr>
                     <th>Product</th>
                     <th>Price</th>
@@ -111,6 +125,7 @@
                     @endphp
 
                     <tr>
+<<<<<<< HEAD
 
                         <td class="fw-semibold">
                             {{ $name }}
@@ -129,18 +144,35 @@
                         <td class="price">
                             ${{ number_format($subtotal, 2) }}
                         </td>
+=======
+                        <td>{{ $name }}</td>
+
+                        <td>${{ number_format($price, 2) }}</td>
+
+                        <td>{{ $item->quantity }}</td>
+
+                        <td>${{ number_format($subtotal, 2) }}</td>
+>>>>>>> 05db09b21274c2c101a3a70efef01a1844115506
 
                         <td>
                             <form action="{{ route('cart.destroy', $item->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
 
+<<<<<<< HEAD
                                 <button class="btn btn-danger btn-sm btn-remove">
                                     🗑 Remove
                                 </button>
                             </form>
                         </td>
 
+=======
+                                <button class="btn btn-danger btn-sm">
+                                    Remove
+                                </button>
+                            </form>
+                        </td>
+>>>>>>> 05db09b21274c2c101a3a70efef01a1844115506
                     </tr>
 
                 @endforeach
@@ -151,6 +183,7 @@
 
     </div>
 
+<<<<<<< HEAD
     <!-- SUMMARY -->
     <div class="cart-summary mt-4">
 
@@ -168,6 +201,20 @@
 
         <div class="alert alert-warning mt-3">
             Your cart is empty 🛒
+=======
+    <div class="mt-3">
+        <h4>Total: ${{ number_format($total, 2) }}</h4>
+    </div>
+
+    <a href="{{ url('/checkout') }}" class="btn btn-success mt-2">
+        Checkout
+    </a>
+
+    @else
+
+        <div class="alert alert-warning mt-3">
+            Your cart is empty
+>>>>>>> 05db09b21274c2c101a3a70efef01a1844115506
         </div>
 
         <a href="{{ url('/shop') }}" class="btn btn-primary">

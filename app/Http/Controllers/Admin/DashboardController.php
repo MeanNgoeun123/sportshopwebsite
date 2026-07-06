@@ -3,15 +3,22 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+<<<<<<< HEAD
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+=======
+use App\Models\Product;
+use App\Models\Order;
+use App\Models\User;
+>>>>>>> 05db09b21274c2c101a3a70efef01a1844115506
 
 class DashboardController extends Controller
 {
     public function index()
     {
+<<<<<<< HEAD
         // =====================
         // BASIC COUNTS
         // =====================
@@ -64,5 +71,12 @@ class DashboardController extends Controller
             'revenue',
             'topProducts'
         ));
+=======
+        return view('admin.dashboard', [
+            'products' => Product::count(),
+            'orders'   => Order::count(),
+            'users'    => User::count(),
+        ]);
+>>>>>>> 05db09b21274c2c101a3a70efef01a1844115506
     }
 }

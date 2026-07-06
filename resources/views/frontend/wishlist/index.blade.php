@@ -2,6 +2,7 @@
 
 @section('content')
 
+<<<<<<< HEAD
 <style>
 /* 🌟 Page */
 .wishlist-title {
@@ -147,6 +148,32 @@
 
     @endif
 
+=======
+<h3>Wishlist</h3>
+
+<div class="row">
+@foreach($wishlists as $item)
+    <div class="col-md-3 mb-3">
+
+        <div class="card">
+
+            <img src="{{ asset('products/'.$item->product->image) }}"
+                 class="card-img-top">
+
+            <div class="card-body">
+                <h6>{{ $item->product->name }}</h6>
+
+                <a href="/product/{{ $item->product->id }}"
+                   class="btn btn-dark btn-sm">
+                    View
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+@endforeach
+>>>>>>> 05db09b21274c2c101a3a70efef01a1844115506
 </div>
 
 @endsection

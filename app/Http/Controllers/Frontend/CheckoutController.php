@@ -88,6 +88,7 @@ class CheckoutController extends Controller
     }
 
     public function processPayment(Request $request)
+<<<<<<< HEAD
 {
     $request->validate([
         'payment_method' => 'required|string'
@@ -154,6 +155,74 @@ class CheckoutController extends Controller
         ->with('success', 'Order placed successfully.');
 }
 
+=======
+    {
+        $request->validate([
+            'payment_method' => 'required|string'
+        ]);
+
+        $cartItems = Cart::with('product')
+            ->where('user_id', auth()->id())
+            ->get();
+
+        if ($cartItems->isEmpty()) {
+            return redirect()
+                ->route('checkout.shipping')
+                ->with('error', 'Cart is empty.');
+        }
+
+        if (!session()->has('shipping_id')) {
+            return redirect()
+                ->route('checkout.shipping')
+                ->with('error', 'Shipping information missing.');
+        }
+
+        $subtotal = $cartItems->sum(function ($item) {
+            return $item->product->price * $item->quantity;
+        });
+
+        $shipping = 5;
+        $total_price = $subtotal + $shipping;
+
+        // ✅ Create Order
+        $order = Order::create([
+            'user_id'        => auth()->id(),
+            'total_price'    => $total_price,
+            'payment_method' => $request->payment_method,
+            'shipping_id'    => session('shipping_id'),
+            'status'         => 'pending',
+        ]);
+
+        // ✅ Create Order Items
+        foreach ($cartItems as $item) {
+            OrderItem::create([
+                'order_id'   => $order->id,
+                'product_id' => $item->product_id,
+                'quantity'   => $item->quantity,
+                'price'      => $item->product->price,
+            ]);
+        }
+
+        // ✅ Create Payment
+        Payment::create([
+            'order_id'       => $order->id,
+            'amount'         => $total_price,
+            'payment_method' => $request->payment_method,
+            'payment_status' => 'paid',
+        ]);
+
+        // ✅ Clear cart
+        Cart::where('user_id', auth()->id())->delete();
+
+        // ✅ Clear session
+        session()->forget('shipping_id');
+
+        return redirect()
+            ->route('checkout.success')
+            ->with('success', 'Order placed successfully.');
+    }
+
+>>>>>>> 05db09b21274c2c101a3a70efef01a1844115506
     public function success()
     {
         return view('frontend.checkout.success');

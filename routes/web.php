@@ -23,6 +23,10 @@ use App\Http\Controllers\Frontend\ProfileController;
 use App\Http\Controllers\Frontend\ContactController;
 use App\Http\Controllers\Frontend\CategoryController as FrontCategoryController;
 use App\Http\Controllers\Frontend\BrandController as FrontBrandController;
+<<<<<<< HEAD
+=======
+use Illuminate\Support\Facades\Session;
+>>>>>>> 05db09b21274c2c101a3a70efef01a1844115506
 
 /*
 |--------------------------------------------------------------------------
@@ -154,8 +158,11 @@ Route::prefix('admin')
         Route::resource('brands', AdminBrandController::class);
         Route::resource('products', AdminProductController::class);
         Route::resource('orders', AdminOrderController::class);
+<<<<<<< HEAD
         Route::post('/admin/orders/{order}/status', [OrderController::class, 'updateStatus'])
     ->name('admin.orders.status');
+=======
+>>>>>>> 05db09b21274c2c101a3a70efef01a1844115506
         Route::resource('users', AdminUserController::class);
         Route::resource('coupons', AdminCouponController::class);
         Route::resource('payments', AdminPaymentController::class);

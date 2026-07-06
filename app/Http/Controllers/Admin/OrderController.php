@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
+<<<<<<< HEAD
     public function index(Request $request)
     {
         
@@ -40,10 +41,26 @@ class OrderController extends Controller
 
         // ❗ IMPORTANT FIX: paginate (NOT get)
         $orders = $query->latest()->paginate(10);
+=======
+    /**
+     * Display a listing of orders.
+     */
+    public function index()
+    {
+        $orders = Order::with('user')
+            ->latest()
+            ->get();
+>>>>>>> 05db09b21274c2c101a3a70efef01a1844115506
 
         return view('admin.orders.index', compact('orders'));
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * Display the specified order.
+     */
+>>>>>>> 05db09b21274c2c101a3a70efef01a1844115506
     public function show(Order $order)
     {
         $order->load('user');
@@ -51,13 +68,22 @@ class OrderController extends Controller
         return view('admin.orders.show', compact('order'));
     }
 
+<<<<<<< HEAD
     public function update(Request $request, Order $order)
     {
         
+=======
+    /**
+     * Update the order status.
+     */
+    public function update(Request $request, Order $order)
+    {
+>>>>>>> 05db09b21274c2c101a3a70efef01a1844115506
         $request->validate([
             'status' => 'required|in:pending,processing,shipped,delivered,cancelled',
         ]);
 
+<<<<<<< HEAD
         $order->update([
             'status' => $request->status,
         ]);
@@ -65,6 +91,19 @@ class OrderController extends Controller
         return back()->with('success', 'Order status updated successfully.');
     }
 
+=======
+        $order->status = $request->status;
+        $order->save();
+
+        return redirect()
+            ->route('admin.orders.show', $order->id)
+            ->with('success', 'Order status updated successfully.');
+    }
+
+    /**
+     * Remove the specified order.
+     */
+>>>>>>> 05db09b21274c2c101a3a70efef01a1844115506
     public function destroy(Order $order)
     {
         $order->delete();
@@ -73,6 +112,7 @@ class OrderController extends Controller
             ->route('admin.orders.index')
             ->with('success', 'Order deleted successfully.');
     }
+<<<<<<< HEAD
     public function updateStatus(Request $request, Order $order)
 {
     $order->update([
@@ -84,4 +124,6 @@ class OrderController extends Controller
         'status' => $order->status
     ]);
 }
+=======
+>>>>>>> 05db09b21274c2c101a3a70efef01a1844115506
 }
